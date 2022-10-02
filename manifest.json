@@ -14,15 +14,24 @@
   "permissions": [
     "activeTab",
     "tabs",
-    "<all_urls>"
+    "<all_urls>",
+    "storage"
   ],
 
   "browser_action": {
     "default_icon": "icons/sc32.png",
     "default_title": "SugarCube Cheat Menu",
     "default_popup": "popup/html/menu.html"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "sc_var_editor@reclinarka.com",
+      "strict_min_version": "42.0"
+    }
   }
 
-  
+
+
 
 }

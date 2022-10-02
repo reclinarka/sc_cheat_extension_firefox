@@ -1,5 +1,6 @@
-var sc_vars = []
-var path_attr_map = {}
+sc_vars = [];
+path_attr_map = {};
+running_keepers = {};
 
 let var_display = document.querySelector("#vardisplay");
 
@@ -122,18 +123,50 @@ function setNumbVar() {
 
     console.log("set " + path + " to " + val);
 
+    reset_keeper(path);
+
     const setcode = "console.log(" + base_var_path + "." + path + " = " + val + ")";
     const executing = browser.tabs.executeScript({
         code: setcode
     });
 }
 
+function save_keeper(result) {
+    result = result[0];
+    let id = result[0], path = result[1];
+    console.log("saving keeper for " + path + " with id " + id);
+    running_keepers[path] = id;
+    console.log(running_keepers);
+    browser.storage.sync.set({"running_keepers": running_keepers});
+}
+
+function reset_keeper(path) {
+    //console.log("resetting keeper for " + path);
+    //console.log("keeper holder:");
+    //console.log(running_keepers);
+    if(path in running_keepers){
+        const resetcode = "clearInterval(" + running_keepers[path] + ")"
+        const executing = browser.tabs.executeScript({
+            code: resetcode
+        });
+    }
+    delete running_keepers[path];
+    browser.storage.sync.set({"running_keepers": running_keepers});
+}
+
 //TODO: last button
 function keepNumbVar() {
     let varcard = this.parentNode.parentNode.parentNode;
     let path = varcard.querySelector(".varpath").innerHTML.replaceAll("-", ".");
-    console.log("keep " + path + " at value");
-
+    let val = varcard.querySelector("input").value;
+    console.log("keeping " + path + " at value " + val);
+    reset_keeper(path)
+    const keepcode = "var keeper_id = setInterval(() => { " + base_var_path + "." + path + " = " + val +
+        " },1); [keeper_id, '" + path +"']";
+    const executing = browser.tabs.executeScript({
+        code: keepcode
+    });
+    executing.then(save_keeper);
 }
 
 function setStringVar() {
@@ -281,6 +314,15 @@ function initSearch() {
     searchbar.addEventListener("input", updateSearchView);
 }
 
+
+function initKeeperStorage() {
+    let gettingKeepers = browser.storage.sync.get("running_keepers");
+    gettingKeepers.then((keeperObj) => {
+        running_keepers = keeperObj.running_keepers;
+    });
+}
+
+
 function onExecuted(result) {
     //console.log("reached on Executed");
     //console.log(result);
@@ -292,6 +334,7 @@ function onExecuted(result) {
             //displayAllVars();
             recursivelyDisplayVars(sc_vars, var_display);
             initSearch();
+            initKeeperStorage();
         }
     }
 }
