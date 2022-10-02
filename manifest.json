@@ -1,0 +1,28 @@
+{
+
+  "manifest_version": 2,
+  "name": "Sugar Cube Variable Editor",
+  "version": "1.0",
+
+  "description": "Allows edits of Variables and Objects within the SugarCube Engine.",
+
+  "icons": {
+    "48": "icons/sc48.png",
+    "96": "icons/sc96.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "<all_urls>"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/sc32.png",
+    "default_title": "SugarCube Cheat Menu",
+    "default_popup": "popup/html/menu.html"
+  }
+
+  
+
+}

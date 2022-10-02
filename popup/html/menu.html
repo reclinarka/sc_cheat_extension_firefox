@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" style="background: #404040;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>extension popup</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body style="background: rgb(72,72,72);--bs-body-bg: #202020;--bs-light: #707070;--bs-light-rgb: 112,112,112;color: var(--bs-indigo);">
+<nav class="navbar navbar-light navbar-expand-md">
+    <div class="container-fluid"><a class="navbar-brand" href="#">SC Variables</a><input id="searchbar"
+            style="height: 30px;width: 50%;position: static;" type="text"></div>
+</nav>
+<div class="row" style="margin-right: 0px;margin-left: 0px;margin-bottom: 4px;">
+    <div class="col" id="vardisplay">
+        <template id="boolean_card_template">
+            <div class="card varcard"
+                 style="background: rgba(33,37,41,0.57);border-color: rgba(33,37,41,0.57);border-top-color: rgb(33,;border-right-color: 37,;border-bottom-color: 41);border-left-color: 37,;">
+                <div class="card-body shadow-lg">
+                    <h4 class="card-title"></h4>
+                    <h6 class="text-muted card-subtitle mb-2">Boolean</h6>
+                    <button class="btn btn-outline-primary truebtn" type="button" style="margin-right: 2px;" >set</button>
+                    <button class="btn btn-outline-primary falsebtn" type="button" >unset</button>
+                    <p class="varpath" hidden></p>
+                </div>
+            </div>
+        </template>
+        <template id="number_card_template">
+            <div class="card varcard" style="background: rgba(33,37,41,0.57);">
+                <div class="card-body shadow-lg">
+                    <h4 class="card-title">Variable Name</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Number</h6>
+                    <div class="row">
+                        <div class="col-4"><input type="number" style="height: 100%;width: 100%;"></div>
+                        <div class="col text-start">
+                            <button class="btn btn-primary setter" type="button"
+                                    style="height: 100%;padding-right: 2px;padding-left: 2px;margin-right: 2px;">set
+                            </button>
+                            <button class="btn btn-primary keeper" type="button" style="padding-right: 2px;padding-left: 2px;">
+                                keep
+                            </button>
+                        </div>
+                    </div>
+                    <p class="varpath" hidden></p>
+                </div>
+            </div>
+        </template>
+        <template id="string_card_template">
+            <div class="card varcard" style="background: rgba(33,37,41,0.57);">
+                <div class="card-body shadow-lg">
+                    <h4 class="card-title">Variable Name</h4>
+                    <h6 class="text-muted card-subtitle mb-2">String</h6>
+                    <div class="row">
+                        <div class="col-5"><input type="text" style="height: 100%;width: 100%;"></div>
+                        <div class="col text-start">
+                            <button class="btn btn-primary" type="button" style="height: 100%;">set</button>
+                        </div>
+                    </div>
+                    <p class="varpath" hidden></p>
+                </div>
+            </div>
+        </template>
+        <template id="object_card_template">
+            <div class="card varcard" style="background: rgba(33,37,41,0.57);">
+                <div class="card-body shadow-lg" >
+                    <h4 class="card-title">Variable Name</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Object</h6>
+                    <p class="varpath" hidden></p>
+                    <div><button class="btn btn-primary"  type="button" >Show Content</button>
+
+                            <div class="row" style="margin-left: -15px;margin-right: -16px;padding-top: 5px;" >
+                                <div class="col object_content"  style="padding-right: 0px;padding-left: 0px;display: none;" >
+
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</div>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+<script src="assets/popup.js"></script>
+</html>
